@@ -9,6 +9,14 @@ const app = express()
 
 app.set('filesFolder', __dirname + '/../dist/img')
 
+//Como hostear react directo desde express? Asi --> 
+//Primero le decimos a express que use todos los archivos del build de react asi:
+app.use(express.static(__dirname + "/build"));
+//Luego le decimos a express que sirva todo eso desde el home
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/build", "index.html"))
+});
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, XMLHttpRequest, authorization, *')
